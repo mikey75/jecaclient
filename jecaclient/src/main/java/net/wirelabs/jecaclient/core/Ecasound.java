@@ -1,65 +1,67 @@
 package net.wirelabs.jecaclient.core;
 
-import java.io.File;
-import java.io.IOException;
-
 public class Ecasound {
 	
-	// defaults
-	private static String DEFAULT_PATH ="/usr/bin/ecasound";
-	private String logfile = "ecasound-daemon.log";	
-	private int port;
-	private String host;
 	
-	private Process process; 
-	
-	
-	public Ecasound(int port) {
-		this.host = "localhost";
-		this.port = port;
-	}
-	
-	public Ecasound(String host, int port)  {
-		this.port = port;
-		this.host = host;		
-	}
-
-	
-	public boolean spawn_local_server() {
+	private boolean spawn_server;
+	private int server_port;
+	private String server_host;
+	private String path;
+	private String logfile;	
+ 	private String instanceName;
+	public boolean spawned = false;
+	private ClientConnection connection;
 		
-		String path = App.config.getString("ecasound.path", DEFAULT_PATH);
-		String log = App.config.getString("ecasound.log", logfile);
+	public Ecasound(String name, String host, int port, String path, String logfile, boolean spawn)  {
 		
-		ProcessBuilder processbuilder = new ProcessBuilder(path,"-c","--server","--server-tcp-port="+this.port); 
-		processbuilder.redirectErrorStream(true);
-		processbuilder.redirectOutput(new File(log));
+		this.instanceName = name;
+		this.server_host = host;
+		this.server_port = port;
+		this.logfile = logfile;
+		this.path = path;
+		this.spawn_server = spawn;
 		
-		System.out.println("Spawning ecasound process:" + path  );
-		
-		try {
-			
-			process = processbuilder.start();
-			return true;
+	}	
 	
-		} catch (IOException e) {
-			System.out.println("Ecasound was not started!");
-			return false;
+	public ClientConnection getConnection() {
+		if (connection == null || connection.getSocket() == null) {
+			connection = new ClientConnection(this);
 		}
+		return connection;
 	}
 	
 	
-	public Process getProcess() {
-		return process;
+
+	public boolean spawnServer() {
+		return spawn_server;
 	}
 
-	public int getPort() {
-		return port;
+	public int getServer_port() {
+		return server_port;
 	}
 
-	public String getHost() {
-		return host;
+	public String getServer_host() {
+		return server_host;
 	}
 
+	public String getPath() {
+		return path;
+	}
+
+	public String getLogfile() {
+		return logfile;
+	}
+
+	public String getInstanceName() {
+		return instanceName;
+	}
+	
+	
+	
+
+
+
+	
 	
 	
 	

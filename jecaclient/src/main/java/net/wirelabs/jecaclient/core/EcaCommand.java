@@ -5,6 +5,7 @@ import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.net.SocketException;
 /**
  * single ECA command object. can be queued, queried etc; 
  * 
@@ -19,6 +20,14 @@ public class EcaCommand {
 
 		    StringBuffer instr = new StringBuffer();
 		    output = new StringBuffer();
+		    
+		    try {
+				connection.getSocket().setKeepAlive(true);
+			} catch (SocketException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		    	
 		    
 		    try {
 		        
@@ -66,7 +75,7 @@ public class EcaCommand {
 		    	  status = false;
 		        System.out.println("IOException: " + f);
 		      }
-
+		    
 		}	
 
 	public StringBuffer getOutput() {
