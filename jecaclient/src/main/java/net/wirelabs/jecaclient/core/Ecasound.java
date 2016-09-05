@@ -27,15 +27,17 @@ public class Ecasound {
 	
 	public boolean spawn_local_server() {
 		
+		String path = App.config.getString("ecasound.path", DEFAULT_PATH);
+		String log = App.config.getString("ecasound.log", logfile);
 		
-		
-		ProcessBuilder processbuilder = new ProcessBuilder(DEFAULT_PATH,"-c","--server","--server-tcp-port="+this.port); 
+		ProcessBuilder processbuilder = new ProcessBuilder(path,"-c","--server","--server-tcp-port="+this.port); 
 		processbuilder.redirectErrorStream(true);
-		processbuilder.redirectOutput(new File(logfile));
+		processbuilder.redirectOutput(new File(log));
 		
+		System.out.println("Spawning ecasound process:" + path  );
 		
 		try {
-			System.out.println("Spawning ecasound process");
+			
 			process = processbuilder.start();
 			return true;
 	

@@ -1,9 +1,7 @@
 package net.wirelabs.jecaclient.core;
 
-import org.apache.commons.configuration.CompositeConfiguration;
 import org.apache.commons.configuration.ConfigurationException;
-import org.apache.commons.configuration.PropertiesConfiguration;
-import org.apache.commons.configuration.SystemConfiguration;
+import org.apache.commons.configuration.XMLConfiguration;
 
 public class App {
 
@@ -12,30 +10,51 @@ public class App {
 	private int server_port;
 	private String server_host;
 	
+	public static XMLConfiguration config;
+	
 	public App(){
 		
-		CompositeConfiguration config = new CompositeConfiguration();
-		config.addConfiguration(new SystemConfiguration());
-		
-		try {
-			config.addConfiguration(new PropertiesConfiguration("jecaclient.properties"));
-			
-			spawn_server = config.getBoolean("core.spawn_eca_server",false);
+		try
+		{
+		    config = new XMLConfiguration("jecaclient.xml");
+		   
+		    // do something with config
+		    spawn_server = config.getBoolean("core.spawn_eca_server",false);
 			server_port = config.getInt("core.server_port",2868);
 			server_host = config.getString("core.server_host","localhost");
-			
-		} catch (ConfigurationException  e) {
-			
+		}
+		catch(ConfigurationException cex)
+		{
 			System.out.println("Couldn't parse config - using defaults");
-			
-		} 
+		}
+		
+		
+//		CompositeConfiguration config = new CompositeConfiguration();
+//		config.addConfiguration(new SystemConfiguration());
+//		
+//		try {
+//			config.addConfiguration(new PropertiesConfiguration("jecaclient.properties"));
+//			
+//			spawn_server = config.getBoolean("core.spawn_eca_server",false);
+//			server_port = config.getInt("core.server_port",2868);
+//			server_host = config.getString("core.server_host","localhost");
+//			
+//		} catch (ConfigurationException  e) {
+//			
+//			System.out.println("Couldn't parse config - using defaults");
+//			
+//		} 
 		
 	
 		Ecasound el = new Ecasound(server_host,server_port);
 		
 		if (spawn_server) {
-			el.spawn_local_server();
-			Utils.sleep(2);			
+			
+			if (!el.spawn_local_server()) {
+				System.exit(1);
+			}
+			Utils.sleep(2);
+						
 		}
 	
 	

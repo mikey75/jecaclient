@@ -1,5 +1,9 @@
-/target/
-.settings/
-.classpath
 *.log
+target/
+bin/
+build/
+.settings
+.classpath
+
+
 
