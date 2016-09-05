@@ -3,7 +3,7 @@
 <configuration>
 	
 	<ecasound>
-		<!-- <path>/usr/bin/ecasound</path> -->
+		<path>/usr/bin/ecasound</path>
 		<log>ecasound-daemon.log</log>
 	</ecasound>
 	

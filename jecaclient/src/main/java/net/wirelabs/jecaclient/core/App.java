@@ -6,9 +6,9 @@ import org.apache.commons.configuration.XMLConfiguration;
 public class App {
 
 	// defaults 
-	private boolean spawn_server;
-	private int server_port;
-	private String server_host;
+	private boolean spawn_server = false;
+	private int server_port = 2868;
+	private String server_host = "localhost";
 	
 	public static XMLConfiguration config;
 	
@@ -27,24 +27,6 @@ public class App {
 		{
 			System.out.println("Couldn't parse config - using defaults");
 		}
-		
-		
-//		CompositeConfiguration config = new CompositeConfiguration();
-//		config.addConfiguration(new SystemConfiguration());
-//		
-//		try {
-//			config.addConfiguration(new PropertiesConfiguration("jecaclient.properties"));
-//			
-//			spawn_server = config.getBoolean("core.spawn_eca_server",false);
-//			server_port = config.getInt("core.server_port",2868);
-//			server_host = config.getString("core.server_host","localhost");
-//			
-//		} catch (ConfigurationException  e) {
-//			
-//			System.out.println("Couldn't parse config - using defaults");
-//			
-//		} 
-		
 	
 		Ecasound el = new Ecasound(server_host,server_port);
 		
