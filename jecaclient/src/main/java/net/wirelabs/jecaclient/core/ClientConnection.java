@@ -17,14 +17,14 @@ public class ClientConnection {
 
 	public ClientConnection(Ecasound el) {
 		
-		if (el.spawnServer() && !el.spawned) {
+		if (el.spawnServer() && !el.isSpawned()) {
 			
 			if (!spawn_local_server(el)) {
 				System.exit(1);
 			}
 			
 			Utils.sleep(2);
-			el.spawned = true;
+			el.setSpawned(true);
 		}
 		
 		
@@ -32,6 +32,7 @@ public class ClientConnection {
 			System.out.println("Opening connection: " + el.getInstanceName() + " " + el.getServer_host() +":" +el.getServer_port());
 			address = InetAddress.getByName(el.getServer_host());
 			socket = new Socket(address, el.getServer_port());
+			socket.setKeepAlive(true);
 			
 		} catch (IOException e) {
 			System.out.println("Client connection failed");
@@ -57,21 +58,21 @@ public class ClientConnection {
 	
 	public boolean spawn_local_server(Ecasound el) {
 		
-		ProcessBuilder processbuilder = new ProcessBuilder(el.getPath(),"-c","--server","--server-tcp-port=" + el.getServer_port()); 
-		processbuilder.redirectErrorStream(true);
-		processbuilder.redirectOutput(new File(el.getLogfile()));
-		
-		System.out.println("Spawning ecasound process: " + el.getPath());
+	//	ProcessBuilder processbuilder = new ProcessBuilder(el.getPath(),"-c","--server","--server-tcp-port=" + el.getServer_port()); 
+	//	processbuilder.redirectErrorStream(true);
+	//	processbuilder.redirectOutput(new File(el.getLogfile()));
+	//	
+	//	System.out.println("Spawning ecasound process: " + el.getPath());
 
-		try {
+	//	try {
 	
-			Process process = processbuilder.start();
+		//	Process process = processbuilder.start();
 			
 			return true;
 
-		} catch (IOException e) {
-			System.out.println("Ecasound was not started!");
-			return false;
-		}
+	//	} catch (IOException e) {
+	//		System.out.println("Ecasound was not started!");
+	//		return false;
+	//	}
 	}
 }

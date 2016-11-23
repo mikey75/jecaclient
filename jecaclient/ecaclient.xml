@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<configuration>
+
+	<ecasound_path>z</ecasound_path>
+	<ecasound_logfile>kk</ecasound_logfile>
+
+	<ecasound_sessions>
+
+		<session>
+			<instanceName>kaka</instanceName>
+			<server_port>8000</server_port>
+			<server_host>192.168.1.200</server_host>
+			<spawn_server>false</spawn_server>
+		</session>
+
+		<session>
+			<instanceName>zzz</instanceName>	
+			<server_port>1111</server_port>
+			<server_host>localhost</server_host>
+			<spawn_server>false</spawn_server>
+		</session>
+
+		<session>
+			<instanceName>kaaaaa</instanceName>
+			<server_port>2222</server_port>
+			<server_host>localhost</server_host>
+			<spawn_server>false</spawn_server>
+		</session>
+	</ecasound_sessions>
+
+</configuration>

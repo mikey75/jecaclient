@@ -23,7 +23,7 @@ public class InstanceSelectorRenderer extends JLabel implements ListCellRenderer
 			boolean isSelected, boolean cellHasFocus) 
 	{
 		 
-		setText(value.getInstanceName());
+		setText((value == null) ? "null" : value.getInstanceName());
 		
 		if (isSelected) {
             setBackground(list.getSelectionBackground());
@@ -32,7 +32,7 @@ public class InstanceSelectorRenderer extends JLabel implements ListCellRenderer
             setBackground(list.getBackground());
             setForeground(list.getForeground());
         }
-
+		
 		return this;
 	
 	}

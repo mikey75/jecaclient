@@ -13,78 +13,80 @@ import java.net.SocketException;
 public class EcaCommand {
 
 
-	private StringBuffer output;
-	private boolean status;
+	public static StringBuffer output;
+	private static boolean status;
 
 	public EcaCommand(ClientConnection connection, String command ) {
 
-		    StringBuffer instr = new StringBuffer();
-		    output = new StringBuffer();
+		    send(connection, command);
 		    
-		    try {
-				connection.getSocket().setKeepAlive(true);
-			} catch (SocketException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+		}
+
+	public static boolean send(ClientConnection connection, String command) {
+		
+		StringBuffer instr = new StringBuffer();
+		output = new StringBuffer();
+		
+		
+		
+		
+		try {
+		    
+			int inChar;
+		    
+		    
+		    BufferedOutputStream bos = new BufferedOutputStream(connection.getSocket().getOutputStream());
+		    OutputStreamWriter osw = new OutputStreamWriter(bos, "US-ASCII");
+		    
+		    /** Write across the socket connection and flush the buffer */
+		    osw.write(command + (char)13 + (char)10);
+		    osw.flush();
+		    
+
+		    BufferedInputStream bis = new BufferedInputStream(connection.getSocket().getInputStream());
+		    InputStreamReader isr = new InputStreamReader(bis, "US-ASCII");
+
+		    /**Read the socket's InputStream and append to a StringBuffer */
+		    //int c;
+		 
+		   	while ( (inChar = isr.read()) != 10) {
+		   		instr.append( (char) inChar);
 			}
+		   
+		   	String [] command_reply = instr.toString().replaceAll("\\p{Cntrl}", "").split(" ");
+		   	int size = Integer.parseInt(command_reply[1]);
+		   	
+		   
+		   	for (int i=0;i<size;i++) {
+		   		output.append((char)isr.read());
+		   	}
 		    	
 		    
-		    try {
-		        
-		    	int inChar;
-		        
-		        
-		        BufferedOutputStream bos = new BufferedOutputStream(connection.getSocket().getOutputStream());
-		        OutputStreamWriter osw = new OutputStreamWriter(bos, "US-ASCII");
-		        
-		        /** Write across the socket connection and flush the buffer */
-		        osw.write(command + (char)13 + (char)10);
-		        osw.flush();
-		        
-
-		        BufferedInputStream bis = new BufferedInputStream(connection.getSocket().getInputStream());
-		        InputStreamReader isr = new InputStreamReader(bis, "US-ASCII");
-
-		        /**Read the socket's InputStream and append to a StringBuffer */
-		        //int c;
-		     
-		       	while ( (inChar = isr.read()) != 10) {
-		       		instr.append( (char) inChar);
-				}
-		       
-		       	String [] command_reply = instr.toString().replaceAll("\\p{Cntrl}", "").split(" ");
-		       	int size = Integer.parseInt(command_reply[1]);
-		       	
-		       
-		       	for (int i=0;i<size;i++) {
-		       		output.append((char)isr.read());
-		       	}
-		        	
-		        
-		        /** Close the socket connection. */
-		       // connection.close();
-		       
-		        if (command_reply[2].equals("s")) {
-		        	status = true;
-		        } else {
-		        	status = false;
-		        }
-		        
+		    /** Close the socket connection. */
+		   // connection.close();
+		   
+		    if (command_reply[2].equals("s")) {
+		    	return true;
+		    	//status = true;
+		    } else {
+		    	return false;  //status = false;
 		    }
-		      catch (IOException f) {
-		    	  status = false;
-		        System.out.println("IOException: " + f);
-		      }
 		    
-		}	
+		}
+		  catch (IOException | NullPointerException f) {
+			 // status = false;
+			  System.out.println("Can't send command");
+			  return false;
+		  }
+	}	
 
-	public StringBuffer getOutput() {
-		return output;
-	}
-
-	public boolean getStatus() {
-		return status;
-	}
+//	public StringBuffer getOutput() {
+//		return output;
+//	}
+//
+//	public boolean getStatus() {
+//		return status;
+//	}
 
 	
 
