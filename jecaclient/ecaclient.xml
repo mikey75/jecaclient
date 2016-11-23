@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <configuration>
 
-	<ecasound_path>z</ecasound_path>
+	<ecasound_path>/usr/bin/ecasound</ecasound_path>
 	<ecasound_logfile>kk</ecasound_logfile>
 
 	<ecasound_sessions>
@@ -24,7 +24,7 @@
 			<instanceName>kaaaaa</instanceName>
 			<server_port>2222</server_port>
 			<server_host>localhost</server_host>
-			<spawn_server>false</spawn_server>
+			<spawn_server>true</spawn_server>
 		</session>
 	</ecasound_sessions>
 

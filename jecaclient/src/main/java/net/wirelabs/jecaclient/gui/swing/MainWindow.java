@@ -1,7 +1,6 @@
 package net.wirelabs.jecaclient.gui.swing;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JFrame;
@@ -11,10 +10,6 @@ import net.wirelabs.jecaclient.core.Ecasound;
 import net.wirelabs.jecaclient.core.Utils;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JPanel;
-import javax.swing.JTabbedPane;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
@@ -28,7 +23,7 @@ public class MainWindow extends JFrame {
 	private JPanel panel_2;
 	private JPanel panel_3;
 	List<Ecasound> sessions;
-	
+	public static String ecasoundbinary;
 	
 	/**
 	 * Create the frame.
@@ -42,6 +37,7 @@ public class MainWindow extends JFrame {
 			
 			c = load_config();
 			sessions = c.getSessions();
+			ecasoundbinary = c.getPath();
 			
 		} catch (JAXBException e) {
 			
@@ -80,10 +76,10 @@ public class MainWindow extends JFrame {
 			
 			getContentPane().add(panel_1, "cell 1 0,grow");
 			
-			panel_2 = new LadspaPluginsPanel(sessions.get(0));
+			panel_2 = new LadspaPluginsPanel(sessions.get(2));
 			getContentPane().add(panel_2, "cell 1 1,grow");
 			
-			panel_3 = new BuiltinOperatorsPanel(sessions.get(0));
+			panel_3 = new BuiltinOperatorsPanel(sessions.get(2));
 			getContentPane().add(panel_3, "cell 1 2,grow");
 			
 		}
