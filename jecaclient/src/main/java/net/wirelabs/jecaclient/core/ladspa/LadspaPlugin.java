@@ -18,7 +18,7 @@ public class LadspaPlugin {
 	
 	public LadspaPlugin(String line_to_parse) {
 		
-		System.out.println(line_to_parse);
+		//System.out.println(line_to_parse);
 		
 		if ( !line_to_parse.isEmpty() ) {
 		String[] s = line_to_parse.split(",");

@@ -2,7 +2,7 @@
 <configuration>
 
 	<ecasound_path>/usr/bin/ecasound</ecasound_path>
-	<ecasound_logfile>kk</ecasound_logfile>
+	<ecasound_logfile>ecasound-daemon.log</ecasound_logfile>
 
 	<ecasound_sessions>
 

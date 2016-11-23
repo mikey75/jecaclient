@@ -1,7 +1,6 @@
 package net.wirelabs.jecaclient.core;
 
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.Window;
 import java.util.Enumeration;
@@ -73,7 +72,9 @@ public class Utils {
 		    		}
 			} catch (Exception e) { 
 				
-				ErrorMsgExit("Critical condition. Your Java may be misconfigured!"); }
+				ErrorMsgExit(e.getMessage());
+				
+			}
 	  }
 	  
 	  public static void sleep(int seconds) {

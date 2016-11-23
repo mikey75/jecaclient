@@ -1,5 +1,6 @@
 package net.wirelabs.jecaclient.core;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
@@ -18,7 +19,7 @@ public class ClientConnection {
 
 	public ClientConnection(Ecasound el) {
 		/*
-		 * if spawn_local -> spawn local server and connect to it
+		 * if this eca instance is spawn_local -> spawn local server and connect to it
 		 */
 		if (el.spawnServer() && !el.isSpawned()) {
 			
@@ -26,21 +27,22 @@ public class ClientConnection {
 				System.exit(1);
 			}
 			
-			Utils.sleep(2);
-			el.setSpawned(true);
 		}
 		
 		/*
-		 * otherwise just connect to existing server
+		 * otherwise just connect to instance-declared server
 		 */
 		try {
+			
 			System.out.println("Opening connection: " + el.getInstanceName() + " " + el.getServer_host() +":" +el.getServer_port());
 			address = InetAddress.getByName(el.getServer_host());
 			socket = new Socket(address, el.getServer_port());
 			socket.setKeepAlive(true);
 			
+			
+			
 		} catch (IOException e) {
-			System.out.println("Client connection failed");
+			System.out.println(e.getMessage());
 		} 
 		
 	}
@@ -63,17 +65,26 @@ public class ClientConnection {
 	
 	public boolean spawn_local_server(Ecasound el) {
 		
-		ProcessBuilder processbuilder = new ProcessBuilder(MainWindow.ecasoundbinary,"-c","--server","--server-tcp-port=" + el.getServer_port()); 
+		ProcessBuilder processbuilder = new ProcessBuilder(MainWindow.getConf().getPath(),"-c","--server","--server-tcp-port=" + el.getServer_port()); 
 		processbuilder.redirectErrorStream(true);
-		//processbuilder.redirectOutput(new File(el.getLogfile()));
-	//	
-		System.out.println("Spawning ecasound process: " + MainWindow.ecasoundbinary);
+		processbuilder.redirectOutput(new File(MainWindow.getConf().getLogfile()));
+		
+		System.out.println("Spawning ecasound process: " + MainWindow.getConf().getPath());
 
 		try {
 	
-			Process process = processbuilder.start();
+			Process p = processbuilder.start();
 			
+			// wait for process to spawn
+			while (!p.isAlive()) {};
+			el.setSpawned(true);
+			// no way to check if server is ready TODO:
+			Utils.sleep(2);
+			
+		
 			return true;
+			
+			
 
 		} catch (IOException e) {
 			System.out.println("Ecasound was not started!");

@@ -1,54 +1,56 @@
 package net.wirelabs.jecaclient.core;
 
 import java.awt.EventQueue;
+import java.io.File;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
 
 import net.wirelabs.jecaclient.gui.swing.MainWindow;
 
-public class Main  {
-	
-	
+/**
+ * Main thread invoker - reads config and instantiates MainWindow;
+ * Everything else is in there ...
+ * 
+ * @author Michał Szwaczko
+ *
+ */
+public class Main {
+
 	public static void main(String[] args) {
-	
 		
-		
+		// TODO: it would be nice to let user specify client.xml file on commandline perhaps
 		
 		EventQueue.invokeLater(new Runnable() {
+			
+
 			@Override
 			public void run() {
+				
+				
+				
 				try {
-						
-//						
-//						JAXBContext jc = JAXBContext.newInstance(Conf.class);
-//				        Unmarshaller u = jc.createUnmarshaller();
-//				        Conf c = (Conf)u.unmarshal(new File("eca2.xml"));
-//				       
-				        
-//					JAXBContext context = JAXBContext.newInstance(Conf.class);
-//			        Marshaller m = context.createMarshaller();
-//			        m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-//			        Conf c = new Conf();
-//			        
-//			        for (int i = 0; i<10;i++) {
-//			        	Ecasound object = new Ecasound("kaka","localhost",2323,"/var/blabla","/var/log.log",true);
-//			        	c.getSessions().add(object);
-//			        	
-//			        	
-//			        }
-//			        m.marshal(c, System.out);
-//			        
-			       // System.exit(1);
+
 					
 					Utils.setLook("Metal", 10);
-
-					MainWindow frame = new MainWindow();
+					Conf conf = load_config();
+					MainWindow frame = new MainWindow(conf);
 					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
+										
+				} catch (JAXBException e) {
+					Utils.ErrorMsg(e.getCause().toString());
 				}
 			}
+
+			private Conf load_config() throws JAXBException {
+				JAXBContext jc = JAXBContext.newInstance(Conf.class);
+				Unmarshaller u = jc.createUnmarshaller();
+				Conf c = (Conf) u.unmarshal(new File("ecaclient.xml"));
+				return c;
+			}
 		});
-		
-		
+
 	}
 
 }
