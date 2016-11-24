@@ -2,8 +2,6 @@ package net.wirelabs.jecaclient.gui.swing;
 
 import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
-import net.wirelabs.jecaclient.core.ClientConnection;
-import net.wirelabs.jecaclient.core.EcaCommand;
 import net.wirelabs.jecaclient.core.Ecasound;
 
 import javax.swing.border.TitledBorder;
@@ -14,40 +12,37 @@ import java.util.Vector;
 import javax.swing.JList;
 
 public class BuiltinOperatorsPanel extends JPanel {
+	
+	private static final long serialVersionUID = 1L;
+	
 	private JScrollPane scrollPane;
-	private JList list;
+	private JList<String> list;
 
 	
 	public BuiltinOperatorsPanel(Ecasound eca) {
 		
-		String instanceName;
 		
-		if (eca != null) {
-			instanceName = eca.getInstanceName();
-		} else {
-			instanceName = "NULL";
-		}
+		list = new JList<>();
 		
-		setBorder(new TitledBorder(null, instanceName + " - Built-in chain operators", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		setBorder(new TitledBorder(null, eca.getInstanceName() + " - Built-in chain operators", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		setLayout(new MigLayout("", "[grow]", "[grow]"));
 		
 		scrollPane = new JScrollPane();
 		add(scrollPane, "cell 0 0,grow");
 		
-		list = new JList();
 		scrollPane.setViewportView(list);
 		
-		ClientConnection e = eca.getConnection();
-		EcaCommand.send(e, "map-cop-list");
+		eca.command("map-cop-list");
 		
-		String[] linie = EcaCommand.output.toString().split("\n");
-		Vector v = new Vector();
+		String[] linie = eca.response().split("\n");
 		
-		//for (int i=0;i<linie.length;i++) {
-		//	String[] pola = linie[i].split(",");
-		//	v.add(pola[1]);
-		//	list.setListData(v);
-		//}
+		Vector<String> v = new Vector<>();
+		
+		for (int i=0;i<linie.length;i++) {
+			String[] pola = linie[i].split(",");
+			v.add(pola[1]);
+			list.setListData(v);
+		}
 		
 
 	}

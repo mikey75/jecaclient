@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
 
-import net.wirelabs.jecaclient.gui.swing.MainWindow;
+import net.wirelabs.jecaclient.gui.swing.Application;
 
 public class ClientConnection {
 	
@@ -14,81 +14,104 @@ public class ClientConnection {
 	private InetAddress address;
 	private Socket socket;
 	
-	
-	
-
 	public ClientConnection(Ecasound el) {
+		
+		
+		boolean socketready = false;
+		
 		/*
-		 * if this eca instance is spawn_local -> spawn local server and connect to it
+		 * if this eca instance has spawn_local property and the local server 
+		 * is not already spawned -> spawn local server first
 		 */
 		if (el.spawnServer() && !el.isSpawned()) {
 			
-			if (!spawn_local_server(el)) {
-				System.exit(1);
-			}
+			spawnLocalServer(el);
 			
 		}
 		
 		/*
-		 * otherwise just connect to instance-declared server
+		 * connect (retry 5 times) 
 		 */
-		try {
+		for (int retries = 0; retries < 5; retries++) {
+		
+		
+			try {
+				Application.getLogger().debug("Trying connection: " + el.getInstanceName() + " " + el.getServer_host() +":" +el.getServer_port());
 			
-			System.out.println("Opening connection: " + el.getInstanceName() + " " + el.getServer_host() +":" +el.getServer_port());
-			address = InetAddress.getByName(el.getServer_host());
-			socket = new Socket(address, el.getServer_port());
-			socket.setKeepAlive(true);
+				address = InetAddress.getByName(el.getServer_host());
+				socket = new Socket(address, el.getServer_port());
+				socket.setKeepAlive(true);
+				socketready = true;
+				break;
+				
+			} catch (IOException e) {
+				Utils.sleepmili(100);	// sleep for 100 ms and retry until none retries left
+				
+			} 
+		
+		
+		}
+		
+		if (!socketready) {
 			
-			
-			
-		} catch (IOException e) {
-			System.out.println(e.getMessage());
-		} 
+			Utils.ErrorMsg("Connection failed: socket was not ready. Session will be defunct. Check logfile" );
+		}
 		
 	}
 
-	public Socket getSocket() {
-		return socket;
+
+
+
+	private void spawnLocalServer(Ecasound el) {
+		
+		
+		String path = Application.getConf().getPath();
+		int port = el.getServer_port();
+		
+		
+		ProcessBuilder processbuilder = new ProcessBuilder(path ,"-c","--server","--server-tcp-port=" + port); 
+		
+		try {
+			File logfile  = new File(Application.getConf().getLogfile());
+			processbuilder.redirectOutput(logfile);
+			processbuilder.redirectErrorStream(true);
+		} catch (NullPointerException e) {
+			Application.getLogger().debug("ecasound log file creation failed");
+		}
+		
+		Application.getLogger().debug("Spawning ecasound process: " +  processbuilder.command());
+		
+		try {
+
+			 processbuilder.start();
+			 
+		} catch (IOException e) {
+			Application.getLogger().error("Ecasound was not started!");	
+		}
 	}
+
+
 
 	
 	public void close() {
 		try {
 			
 			if (socket != null) {
-			socket.close();
+				socket.close();
 			}
 		} catch (IOException e) {
-			System.out.println("Error closing connection!!");
+			Application.getLogger().debug("Error closing connection!!");
 		}
 	}
-	
-	public boolean spawn_local_server(Ecasound el) {
-		
-		ProcessBuilder processbuilder = new ProcessBuilder(MainWindow.getConf().getPath(),"-c","--server","--server-tcp-port=" + el.getServer_port()); 
-		processbuilder.redirectErrorStream(true);
-		processbuilder.redirectOutput(new File(MainWindow.getConf().getLogfile()));
-		
-		System.out.println("Spawning ecasound process: " + MainWindow.getConf().getPath());
 
-		try {
-	
-			Process p = processbuilder.start();
-			
-			// wait for process to spawn
-			while (!p.isAlive()) {};
-			el.setSpawned(true);
-			// no way to check if server is ready TODO:
-			Utils.sleep(2);
-			
-		
-			return true;
-			
-			
-
-		} catch (IOException e) {
-			System.out.println("Ecasound was not started!");
-			return false;
-		}
+	public InetAddress getAddress() {
+		return address;
 	}
+
+
+	public Socket getSocket() {
+		return socket;
+	}
+
+
 }

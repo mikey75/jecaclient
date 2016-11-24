@@ -47,11 +47,11 @@ public class EcaSessionsPanel extends JPanel {
 			}
 		) {
 			private static final long serialVersionUID = 1L;
-			Class[] columnTypes = new Class[] {
+			Class<?>[] columnTypes = new Class[] {
 				Object.class, Object.class, Object.class, Boolean.class
 			};
 			@Override
-			public Class getColumnClass(int columnIndex) {
+			public Class<?> getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
 			}
 		});
@@ -82,8 +82,8 @@ public class EcaSessionsPanel extends JPanel {
 		btnAddNew.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("add_new_instance");
-				new AddNewInstance().show();
+				
+				new AddNewInstance().setVisible(true);
 			}
 		});
 		

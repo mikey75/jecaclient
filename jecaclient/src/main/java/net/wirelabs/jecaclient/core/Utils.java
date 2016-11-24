@@ -81,7 +81,7 @@ public class Utils {
 			try {
 				Thread.sleep(seconds << 10); /* bitshift multiply by 1024 */
 			} catch (InterruptedException e) {
-				System.out.println("Error sleeping");
+				
 			}
 		}
 		
@@ -89,7 +89,7 @@ public class Utils {
 			try {
 				Thread.sleep(miliseconds);
 			} catch (InterruptedException e) {
-				System.out.println("Error sleeping");
+				
 			}
 		}
 }

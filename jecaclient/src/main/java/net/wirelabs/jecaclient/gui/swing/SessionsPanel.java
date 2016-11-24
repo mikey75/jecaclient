@@ -1,28 +1,25 @@
 package net.wirelabs.jecaclient.gui.swing;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.util.List;
 
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeCellRenderer;
-
 import net.miginfocom.swing.MigLayout;
 import net.wirelabs.jecaclient.core.Ecasound;
 
 public class SessionsPanel extends JPanel {
+	
+	private static final long serialVersionUID = 1L;
+	
 	private JScrollPane scrollPane;
 	private JTree tree;
 
-	public SessionsPanel() {
-		this(null);
-	}
+	
 	/**
 	 * Create the panel.
 	 */

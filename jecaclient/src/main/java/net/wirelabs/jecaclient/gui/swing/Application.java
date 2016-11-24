@@ -1,13 +1,18 @@
 package net.wirelabs.jecaclient.gui.swing;
 
+
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import net.miginfocom.swing.MigLayout;
 import net.wirelabs.jecaclient.core.Conf;
 import net.wirelabs.jecaclient.core.Utils;
 
-public class MainWindow extends JFrame {
+public class Application extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private SessionsPanel panel;
@@ -16,6 +21,7 @@ public class MainWindow extends JFrame {
 	private JPanel panel_3;
 
 	private static Conf conf;
+	private static Logger logger;
 
 	/**
 	 * Create the frame.
@@ -23,10 +29,11 @@ public class MainWindow extends JFrame {
 	 * @param conf
 	 *            - configuration from ecaclient.xml
 	 */
-	public MainWindow(Conf conf) {
+	public Application(Conf conf) {
 
-		MainWindow.conf = conf;
-
+		Application.conf = conf;
+		Application.logger =  LoggerFactory.getLogger(Application.class);
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		Utils.setFullScreen(this);
@@ -47,6 +54,10 @@ public class MainWindow extends JFrame {
 
 	public static Conf getConf() {
 		return conf;
+	}
+
+	public static Logger getLogger() {
+		return logger;
 	}
 
 }

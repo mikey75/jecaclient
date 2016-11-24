@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 
-@SuppressWarnings("unused")
+
 @XmlRootElement(name="session")
 @XmlAccessorType (XmlAccessType.FIELD)
 
@@ -36,14 +36,23 @@ public class Ecasound {
 		
 	}	
 	
-	public ClientConnection getConnection() {
+	/*public ClientConnection getConnection() {
+		
+		return connection;
+	}*/
+	
+	public boolean command(String cmd) {
+		
 		if (connection == null ) {
 			connection = new ClientConnection(this);
 		}
-		return connection;
+		
+		return EcaCommand.send(connection, cmd);
 	}
 	
-	
+	public String response() {
+		return EcaCommand.output.toString();
+	}
 
 	public boolean spawnServer() {
 		return spawn_server;

@@ -7,7 +7,7 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
-import net.wirelabs.jecaclient.gui.swing.MainWindow;
+import net.wirelabs.jecaclient.gui.swing.Application;
 
 /**
  * Main thread invoker - reads config and instantiates MainWindow;
@@ -21,21 +21,17 @@ public class Main {
 	public static void main(String[] args) {
 		
 		// TODO: it would be nice to let user specify client.xml file on commandline perhaps
-		
 		EventQueue.invokeLater(new Runnable() {
 			
 
 			@Override
 			public void run() {
-				
-				
-				
-				try {
 
+				try {
 					
 					Utils.setLook("Metal", 10);
 					Conf conf = load_config();
-					MainWindow frame = new MainWindow(conf);
+					Application frame = new Application(conf);
 					frame.setVisible(true);
 										
 				} catch (JAXBException e) {
