@@ -1,4 +1,4 @@
-package net.wirelabs.jecaclient.core;
+package net.wirelabs.jecaclient.boot;
 
 import java.awt.EventQueue;
 import java.io.File;
@@ -7,6 +7,7 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
+import net.wirelabs.jecaclient.core.Utils;
 import net.wirelabs.jecaclient.gui.swing.Application;
 
 /**
@@ -35,7 +36,7 @@ public class Main {
 					frame.setVisible(true);
 										
 				} catch (JAXBException e) {
-					Utils.ErrorMsg(e.getCause().toString());
+					Utils.ErrorMsgExit("ecaclient.xml parse error");
 				}
 			}
 

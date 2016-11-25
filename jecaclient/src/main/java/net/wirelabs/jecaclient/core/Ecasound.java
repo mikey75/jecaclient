@@ -13,7 +13,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 public class Ecasound {
 	
-	
+	private String instance_id;
 	private String instanceName;
 	private int server_port;
 	private String server_host;
@@ -23,18 +23,18 @@ public class Ecasound {
 	@XmlTransient
 	private ClientConnection connection;
 	
-	public Ecasound(){
-		
-	}
-		
-	public Ecasound(String name, String host, int port, boolean spawn)  {
-		
-		this.instanceName = name;
-		this.server_host = host;
-		this.server_port = port;
-		this.spawn_server = spawn;
-		
-	}	
+//	public Ecasound(){
+//		
+//	}
+//		
+//	public Ecasound(String name, String host, int port, boolean spawn)  {
+//		
+//		this.instanceName = name;
+//		this.server_host = host;
+//		this.server_port = port;
+//		this.spawn_server = spawn;
+//		
+//	}	
 	
 	/*public ClientConnection getConnection() {
 		
@@ -79,7 +79,11 @@ public class Ecasound {
 	public void setSpawned(boolean spawned) {
 		this.spawned = spawned;
 	}
-	
+
+	public String getInstance_id() {
+		return instance_id;
+	}
+
 	
 	
 
