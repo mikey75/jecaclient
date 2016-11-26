@@ -42,20 +42,10 @@ public class Conf {
 	@XmlElement(name = "session")
 	private List<Ecasound> sessions = new ArrayList<Ecasound>();
 
-	/**
-	 * find the session object of boot session
-	 * @return
-	 */
-	public Ecasound findDefaultSession() {
-		
-		for (Ecasound e: sessions) {
-			
-			if (defaultsession.equals(e.getInstance_id()))
-				return e;
-		}
-		throw new IllegalArgumentException("Boot session declared in config file has no corresponding session definition");
-	}
+	
 
+	
+	
 	public List<Ecasound> getSessions() {
 		return sessions;
 	}
@@ -80,7 +70,36 @@ public class Conf {
 		this.logfile = logfile;
 	}
 
+	public String getDefaultsession() {
+		return defaultsession;
+	}
+
+	public boolean hasDefaultSession() {
+		return (defaultsession != null);
+	}
+	public boolean hasSessions() {
+		return (sessions.size()>0);
+	}
 	
-	
+	/**
+	 * find the session object of boot session
+	 * @return session object
+	 */
+	public Ecasound getDefaultSessionObject() {
+		
+		if (hasSessions() && hasDefaultSession()) {
+			for (Ecasound e: sessions) {
+				if (defaultsession.equals(e.getInstanceId()))
+					return e;
+			}
+		}
+		JEca.logger.debug("No default session or default session does not match session id");
+		return null;
+		
+		
+			
+		
+		
+	}
 		
 }

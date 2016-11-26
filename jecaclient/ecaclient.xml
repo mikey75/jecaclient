@@ -4,7 +4,7 @@
  	<ecasound_path>/usr/bin/ecasound</ecasound_path>
 	<ecasound_logfile>ecasound-daemon.log</ecasound_logfile>
 	
-	<default_session>4</default_session>
+	<default_session>3</default_session>
 	
 	<ecasound_sessions>
 	

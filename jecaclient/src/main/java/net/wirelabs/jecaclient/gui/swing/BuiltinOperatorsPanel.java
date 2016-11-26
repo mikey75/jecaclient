@@ -24,7 +24,7 @@ public class BuiltinOperatorsPanel extends JPanel {
 		
 		list = new JList<>();
 		
-		setBorder(new TitledBorder(null, eca.getInstanceName() + " - Built-in chain operators", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		setBorder(new TitledBorder(null, "Built-in chain operators", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		setLayout(new MigLayout("", "[grow]", "[grow]"));
 		
 		scrollPane = new JScrollPane();
@@ -32,7 +32,7 @@ public class BuiltinOperatorsPanel extends JPanel {
 		
 		scrollPane.setViewportView(list);
 		
-		eca.command("map-cop-list");
+		if (eca != null && eca.command("map-cop-list")) { 
 		
 		String[] linie = eca.response().split("\n");
 		
@@ -43,7 +43,7 @@ public class BuiltinOperatorsPanel extends JPanel {
 			v.add(pola[1]);
 			list.setListData(v);
 		}
-		
+		}
 
 	}
 

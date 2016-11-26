@@ -3,6 +3,7 @@ package net.wirelabs.jecaclient.core;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -12,8 +13,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlAccessorType (XmlAccessType.FIELD)
 
 public class Ecasound {
-	
-	private String instance_id;
+	@XmlElement(name="instance_id")
+	private String instanceId;
 	private String instanceName;
 	private int server_port;
 	private String server_host;
@@ -80,8 +81,8 @@ public class Ecasound {
 		this.spawned = spawned;
 	}
 
-	public String getInstance_id() {
-		return instance_id;
+	public String getInstanceId() {
+		return instanceId;
 	}
 
 	

@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
 
-import net.wirelabs.jecaclient.gui.swing.Application;
+import net.wirelabs.jecaclient.boot.JEca;
 
 public class ClientConnection {
 	
@@ -36,7 +36,7 @@ public class ClientConnection {
 		
 		
 			try {
-				Application.getLogger().debug("Trying connection: " + el.getInstanceName() + " " + el.getServer_host() +":" +el.getServer_port());
+				JEca.logger.debug("Trying connection: " + el.getInstanceName() + " " + el.getServer_host() +":" +el.getServer_port());
 			
 				address = InetAddress.getByName(el.getServer_host());
 				socket = new Socket(address, el.getServer_port());
@@ -65,28 +65,28 @@ public class ClientConnection {
 	private void spawnLocalServer(Ecasound el) {
 		
 		
-		String path = Application.getConf().getPath();
+		String path = JEca.configuration.getPath();
 		int port = el.getServer_port();
 		
 		
 		ProcessBuilder processbuilder = new ProcessBuilder(path ,"-c","--server","--server-tcp-port=" + port); 
 		
 		try {
-			File logfile  = new File(Application.getConf().getLogfile());
+			File logfile  = new File(JEca.configuration.getLogfile());
 			processbuilder.redirectOutput(logfile);
 			processbuilder.redirectErrorStream(true);
 		} catch (NullPointerException e) {
-			Application.getLogger().debug("ecasound log file creation failed");
+			JEca.logger.debug("ecasound log file creation failed");
 		}
 		
-		Application.getLogger().debug("Spawning ecasound process: " +  processbuilder.command());
+		JEca.logger.debug("Spawning ecasound process: " +  processbuilder.command());
 		
 		try {
 
 			 processbuilder.start();
 			 
 		} catch (IOException e) {
-			Application.getLogger().error("Ecasound was not started!");	
+			JEca.logger.error("Ecasound was not started!");	
 		}
 	}
 
@@ -100,7 +100,7 @@ public class ClientConnection {
 				socket.close();
 			}
 		} catch (IOException e) {
-			Application.getLogger().debug("Error closing connection!!");
+			JEca.logger.debug("Error closing connection!!");
 		}
 	}
 

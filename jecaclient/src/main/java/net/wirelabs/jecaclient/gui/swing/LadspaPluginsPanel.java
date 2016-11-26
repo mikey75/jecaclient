@@ -29,7 +29,7 @@ public class LadspaPluginsPanel extends JPanel {
 		list = new JList<String>();
 		plugins = new ArrayList<>();
 		
-		setBorder(new TitledBorder(null, eca.getInstanceName() +" - Registered LADSPA Plugins", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		setBorder(new TitledBorder(null, "Registered LADSPA Plugins", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		setLayout(new MigLayout("", "[grow]", "[grow]"));
 		
 		scrollPane = new JScrollPane();
@@ -40,7 +40,7 @@ public class LadspaPluginsPanel extends JPanel {
 		
 		
 		
-		if (eca.command("map-ladspa-list")) {
+		if (eca != null && eca.command("map-ladspa-list")) {
 		
 			String[] linie = eca.response().split("\n");
 		
@@ -60,5 +60,5 @@ public class LadspaPluginsPanel extends JPanel {
 		
 
 	}
-
+	
 }

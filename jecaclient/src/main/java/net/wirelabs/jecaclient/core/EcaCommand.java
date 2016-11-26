@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 
-import net.wirelabs.jecaclient.gui.swing.Application;
+import net.wirelabs.jecaclient.boot.JEca;
 /**
  * single ECA command object. can be queued, queried etc; 
  * 
@@ -67,7 +67,7 @@ public class EcaCommand {
 		}
 		  catch (IOException | NullPointerException f) {
 			
-			  Application.getLogger().error("Can't send command");
+			  JEca.logger.error("Can't send command");
 			  return false;
 		  }
 	}	
