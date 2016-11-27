@@ -23,14 +23,14 @@ public class SessionsPanel extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public SessionsPanel(List<Ecasound> engines) {
+	public SessionsPanel(List<Ecasound> sessions) {
 		setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Ecasound Sessions", TitledBorder.LEFT, TitledBorder.TOP, null, new Color(51, 51, 51)));
 		setLayout(new MigLayout("", "[grow]", "[grow]"));
 		
 		scrollPane = new JScrollPane();
 		add(scrollPane, "cell 0 0,grow");
 		
-		tree = new JTree(new SessionsTreeModel(new DefaultMutableTreeNode("kaka")));
+		tree = new JTree(new SessionsTreeModel(new DefaultMutableTreeNode("kaka"),sessions));
 	
 		
 		

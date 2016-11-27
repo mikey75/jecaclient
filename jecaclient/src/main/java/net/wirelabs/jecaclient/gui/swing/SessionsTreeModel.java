@@ -1,41 +1,35 @@
 package net.wirelabs.jecaclient.gui.swing;
 
+import java.util.List;
+
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeNode;
+
+import net.wirelabs.jecaclient.core.Ecasound;
 
 public class SessionsTreeModel extends DefaultTreeModel {
 
 	
 	private static final long serialVersionUID = 1L;
 
-	public SessionsTreeModel(TreeNode root) {
+	public SessionsTreeModel(TreeNode root, List<Ecasound> sessions) {
 		    super(root);
 	
-		    //DefaultMutableTreeNode      root = new DefaultMutableTreeNode("JTree");
+		
 	        DefaultMutableTreeNode      parent;
 
-	        parent = new DefaultMutableTreeNode("zcolors");
-	        ((DefaultMutableTreeNode) root).add(parent);
-	        parent.add(new DefaultMutableTreeNode("zblue"));
-	        parent.add(new DefaultMutableTreeNode("zviolet"));
-	        parent.add(new DefaultMutableTreeNode("zred"));
-	        parent.add(new DefaultMutableTreeNode("zyellow"));
+	        for (Ecasound e: sessions) {
+	        	parent = new DefaultMutableTreeNode(e.getInstanceName());
+	        	((DefaultMutableTreeNode) root).add(parent);
+	        	//parent.setUserObject(e);
+	        //	parent.add(new DefaultMutableTreeNode(e.getServer_host()));
+		     //   parent.add(new DefaultMutableTreeNode(e.getServer_port()));
+		     //   parent.add(new DefaultMutableTreeNode(e.getInstanceId()));
+		     //   parent.add(new DefaultMutableTreeNode(e.isSpawned()));
 
-	        parent = new DefaultMutableTreeNode("sports");
-	        ((DefaultMutableTreeNode) root).add(parent);
-	        parent.add(new DefaultMutableTreeNode("basketball"));
-	        parent.add(new DefaultMutableTreeNode("soccer"));
-	        parent.add(new DefaultMutableTreeNode("football"));
-	        parent.add(new DefaultMutableTreeNode("hockey"));
-
-	        parent = new DefaultMutableTreeNode("food");
-	        ((DefaultMutableTreeNode) root).add(parent);
-	        parent.add(new DefaultMutableTreeNode("hot dogs"));
-	        parent.add(new DefaultMutableTreeNode("pizza"));
-	        parent.add(new DefaultMutableTreeNode("ravioli"));
-	        parent.add(new DefaultMutableTreeNode("bananas"));
-	        
+	        }
+	      
 	}
 
 }
