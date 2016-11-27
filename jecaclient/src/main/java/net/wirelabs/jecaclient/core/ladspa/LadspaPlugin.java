@@ -9,15 +9,14 @@ public class LadspaPlugin {
 	private String name;
 	private String label;
 	
-	private int operator_count;
-	private List<LadspaPluginOperator> operators;	
+	private int operator_count = 0;
+	
+	private List<LadspaPluginOperator> operators = new ArrayList<>();	
 	
 	public LadspaPlugin(String line_to_parse) {
 		
 		
-		operators = new ArrayList<>();
-		operator_count = 0;
-		
+	
 		if ( !line_to_parse.isEmpty() ) {
 		String[] s = line_to_parse.split(",");
 		

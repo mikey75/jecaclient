@@ -26,7 +26,7 @@ public class MainWindow extends JFrame {
 		setBounds(100, 100, 450, 300);
 		setLayout(new MigLayout("", "[::15%,grow][grow]", "[grow][grow][grow]"));
 
-		try {
+	
 			
 			Ecasound defaultsession = JEca.configuration.getDefaultSessionObject();
 			
@@ -42,11 +42,6 @@ public class MainWindow extends JFrame {
 			add(panel_3, "cell 1 2,grow");
 		
 			Utils.setFullScreen(this);
-		} catch (IllegalArgumentException ex) {
-			//System.out.println("ex");
-			Utils.ErrorMsgExit(ex.getMessage());
-			
-		}
 		
 		
 	}
