@@ -87,7 +87,11 @@ public class Ecasound {
 
 	
 	
-
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return instanceName;
+	}
 
 
 	

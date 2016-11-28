@@ -52,7 +52,7 @@ public class LadspaPluginsPanel extends JPanel {
 				LadspaPlugin plugin = new LadspaPlugin(linie[i]);
 				plugins.add(plugin);
 			
-				v.add(plugin.getLabel());
+				v.add(plugin.getName());
 				list.setListData(v);
 			}
 		

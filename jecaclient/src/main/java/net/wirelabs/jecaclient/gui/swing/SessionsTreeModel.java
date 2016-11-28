@@ -22,7 +22,8 @@ public class SessionsTreeModel extends DefaultTreeModel {
 	        for (Ecasound e: sessions) {
 	        	parent = new DefaultMutableTreeNode(e.getInstanceName());
 	        	((DefaultMutableTreeNode) root).add(parent);
-	        	//parent.setUserObject(e);
+	        	parent.setUserObject(e);
+	        	
 	        //	parent.add(new DefaultMutableTreeNode(e.getServer_host()));
 		     //   parent.add(new DefaultMutableTreeNode(e.getServer_port()));
 		     //   parent.add(new DefaultMutableTreeNode(e.getInstanceId()));
@@ -32,4 +33,5 @@ public class SessionsTreeModel extends DefaultTreeModel {
 	      
 	}
 
+	
 }
