@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<configuration>
+
+ 	<ecasound_path>/usr/bin/ecasound</ecasound_path>
+	<ecasound_logfile>ecasound-daemon.log</ecasound_logfile>
+	
+	<default_session>3</default_session>
+	
+	<ecasound_sessions>
+	
+		<session>
+			<instance_id>1</instance_id>
+			<instanceName>Session #1</instanceName>
+			<server_port>8000</server_port>
+			<server_host>192.168.1.200</server_host>
+			<spawn_server>false</spawn_server>
+		</session>
+
+		<session>
+			<instance_id>2</instance_id>
+			<instanceName>Session #2</instanceName>	
+			<server_port>1111</server_port>
+			<server_host>localhost</server_host>
+			<spawn_server>false</spawn_server>
+		</session>
+
+		<session>
+			<instance_id>3</instance_id>
+			<instanceName>Session #3</instanceName>
+			<server_port>2222</server_port>
+			<server_host>localhost</server_host>
+			<spawn_server>true</spawn_server>
+		</session>
+	</ecasound_sessions>
+
+</configuration>

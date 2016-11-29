@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<configuration>
+
+
+	<local_ecasound>
+		<eca_path>/usr/bin/ecasound</eca_path>
+		<eca_realtime>true</eca_realtime>
+		<logfile>ecasound-daemon.log</logfile>
+	</local_ecasound>
+
+	<eca_instances>
+
+		<eca_instance>
+			<name>kaka</name>
+			<server_host>192.168.1.200</server_host>
+			<server_port>8000</server_port>
+		</eca_instance>
+
+		<eca_instance>
+			<name>lokal</name>
+			<path>/usr/bin/ecasound</path>
+			<logfile>ecasound-daemon.log</logfile>
+			<spawn_server>true</spawn_server>
+			<server_port>4000</server_port>
+			<server_host>localhost</server_host>
+		</eca_instance>
+
+	</eca_instances>
+
+</configuration>
