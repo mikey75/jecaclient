@@ -3,9 +3,7 @@ package net.wirelabs.jecaclient.gui.swing;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 public class SelectEffect extends JDialog {
@@ -21,7 +19,7 @@ public class SelectEffect extends JDialog {
 	public static void main(String[] args) {
 		try {
 			SelectEffect dialog = new SelectEffect();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();

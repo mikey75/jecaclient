@@ -9,7 +9,7 @@ public class LadspaPlugin {
 	private String name;
 	private String label;
 	
-	private int operator_count = 0;
+	private int operatorCount = 0;
 	
 	private List<LadspaPluginOperator> operators = new ArrayList<>();	
 	
@@ -24,10 +24,10 @@ public class LadspaPlugin {
 			shortName = s[0];
 			name = s[1];
 			label = s[2];
-			operator_count=Integer.parseInt(s[3]);
+			operatorCount =Integer.parseInt(s[3]);
 			
-			if (operator_count > 0) {
-				for (int i=0;i<operator_count;i++) {
+			if (operatorCount > 0) {
+				for (int i = 0; i< operatorCount; i++) {
 					int ofs = i*11+4;				
 					
 					LadspaPluginOperator po = new LadspaPluginOperator();
@@ -87,13 +87,13 @@ public class LadspaPlugin {
 	}
 
 
-	public int getOperator_count() {
-		return operator_count;
+	public int getOperatorCount() {
+		return operatorCount;
 	}
 
 
-	public void setOperator_count(int operator_count) {
-		this.operator_count = operator_count;
+	public void setOperatorCount(int operatorCount) {
+		this.operatorCount = operatorCount;
 	}
 
 

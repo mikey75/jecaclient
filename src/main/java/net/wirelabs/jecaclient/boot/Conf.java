@@ -9,12 +9,14 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import lombok.extern.slf4j.Slf4j;
 import net.wirelabs.jecaclient.core.Ecasound;
 /**
  * Configuration for jecaclient. (ecaclient.xml)
  * @author Michał Szwaczko
  *
  */
+@Slf4j
 @XmlRootElement(name = "configuration")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Conf {
@@ -40,12 +42,8 @@ public class Conf {
 	 */
 	@XmlElementWrapper(name = "ecasound_sessions")
 	@XmlElement(name = "session")
-	private List<Ecasound> sessions = new ArrayList<Ecasound>();
+	private List<Ecasound> sessions = new ArrayList<>();
 
-	
-
-	
-	
 	public List<Ecasound> getSessions() {
 		return sessions;
 	}
@@ -78,7 +76,7 @@ public class Conf {
 		return (defaultsession != null);
 	}
 	public boolean hasSessions() {
-		return (sessions.size()>0);
+		return (!sessions.isEmpty());
 	}
 	
 	/**
@@ -93,13 +91,9 @@ public class Conf {
 					return e;
 			}
 		}
-		JEca.logger.debug("No default session or default session does not match session id");
+		log.debug("No default session or default session does not match session id");
 		return null;
-		
-		
-			
-		
-		
+
 	}
 		
 }

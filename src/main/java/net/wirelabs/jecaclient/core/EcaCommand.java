@@ -5,12 +5,15 @@ import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.nio.charset.StandardCharsets;
 
+import lombok.extern.slf4j.Slf4j;
 import net.wirelabs.jecaclient.boot.JEca;
 /**
  * single ECA command object. can be queued, queried etc; 
  * 
  */
+@Slf4j
 public class EcaCommand {
 
 
@@ -37,7 +40,7 @@ public class EcaCommand {
 		    
 		    
 		    BufferedOutputStream bos = new BufferedOutputStream(connection.getSocket().getOutputStream());
-		    OutputStreamWriter osw = new OutputStreamWriter(bos, "US-ASCII");
+		    OutputStreamWriter osw = new OutputStreamWriter(bos, StandardCharsets.US_ASCII);
 		    
 		    /** Write across the socket connection and flush the buffer */
 		    osw.write(command + (char)13 + (char)10);
@@ -45,7 +48,7 @@ public class EcaCommand {
 		    
 
 		    BufferedInputStream bis = new BufferedInputStream(connection.getSocket().getInputStream());
-		    InputStreamReader isr = new InputStreamReader(bis, "US-ASCII");
+		    InputStreamReader isr = new InputStreamReader(bis, StandardCharsets.US_ASCII);
 
 		    /**Read the socket's InputStream and append to a StringBuffer */
 		    
@@ -54,20 +57,20 @@ public class EcaCommand {
 		   		instr.append( (char) inChar);
 			}
 		   
-		   	String [] command_reply = instr.toString().replaceAll("\\p{Cntrl}", "").split(" ");
-		   	int size = Integer.parseInt(command_reply[1]);
+		   	String [] commandReply = instr.toString().replaceAll("\\p{Cntrl}", "").split(" ");
+		   	int size = Integer.parseInt(commandReply[1]);
 		   	
 		   
 		   	for (int i=0;i<size;i++) {
 		   		output.append((char)isr.read());
 		   	}
 		   
-		    return (command_reply[2].equals("s"));
+		    return (commandReply[2].equals("s"));
 		    
 		}
 		  catch (IOException | NullPointerException f) {
 			
-			  JEca.logger.error("Can't send command");
+			  log.error("Can't send command");
 			  return false;
 		  }
 	}	

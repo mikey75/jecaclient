@@ -11,8 +11,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.tree.DefaultMutableTreeNode;
 import net.miginfocom.swing.MigLayout;
 import net.wirelabs.jecaclient.core.Ecasound;
-import javax.swing.event.TreeSelectionListener;
-import javax.swing.event.TreeSelectionEvent;
+
 import javax.swing.JLabel;
 
 public class SessionsPanel extends JPanel {
@@ -23,10 +22,10 @@ public class SessionsPanel extends JPanel {
 	private JTree tree;
 	
 	private JPanel panel;
-	private JLabel IPLabel;
+	private JLabel ipLabel;
 	private JLabel portLabel;
 	private JLabel spawnLabel;
-	private JLabel IPValue;
+	private JLabel ipValue;
 	private JLabel portValue;
 	private JLabel spawnValue;
 
@@ -42,13 +41,7 @@ public class SessionsPanel extends JPanel {
 		add(scrollPane, "cell 0 0,grow");
 		
 		tree = new JTree(new SessionsTreeModel(new DefaultMutableTreeNode("kaka"),sessions));
-		
-		
-		
-		
-		
-		//tree.setRootVisible(false);
-		
+
 		scrollPane.setViewportView(tree);
 		
 		panel = new JPanel();
@@ -56,11 +49,11 @@ public class SessionsPanel extends JPanel {
 		add(panel, "cell 0 1,grow");
 		panel.setLayout(new MigLayout("", "[][]", "[][][][]"));
 		
-		IPLabel = new JLabel("IP Address:");
-		panel.add(IPLabel, "cell 0 0");
+		ipLabel = new JLabel("IP Address:");
+		panel.add(ipLabel, "cell 0 0");
 		
-		IPValue = new JLabel("(none)");
-		panel.add(IPValue, "cell 1 0");
+		ipValue = new JLabel("(none)");
+		panel.add(ipValue, "cell 1 0");
 		
 		portLabel = new JLabel("TCP Port:");
 		panel.add(portLabel, "cell 0 1");
@@ -75,18 +68,14 @@ public class SessionsPanel extends JPanel {
 		panel.add(spawnValue, "cell 1 2");
 
 
-		tree.addTreeSelectionListener(new TreeSelectionListener() {
-			@Override
-			public void valueChanged(TreeSelectionEvent e) {
-				DefaultMutableTreeNode selectedNode = 
-					       (DefaultMutableTreeNode)tree.getLastSelectedPathComponent();
-				Ecasound session = (Ecasound) selectedNode.getUserObject();
-				IPValue.setText(session.getServer_host());
-				portValue.setText(String.valueOf(session.getServer_port()));
-				spawnValue.setText(String.valueOf(session.spawnServer()));
-				
-			}
-			
+		tree.addTreeSelectionListener(e -> {
+			DefaultMutableTreeNode selectedNode =
+					   (DefaultMutableTreeNode)tree.getLastSelectedPathComponent();
+			Ecasound session = (Ecasound) selectedNode.getUserObject();
+			ipValue.setText(session.getServerHost());
+			portValue.setText(String.valueOf(session.getServerPort()));
+			spawnValue.setText(String.valueOf(session.spawnServer()));
+
 		});
 	}
 	

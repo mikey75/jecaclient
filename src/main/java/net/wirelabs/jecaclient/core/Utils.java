@@ -1,5 +1,8 @@
 package net.wirelabs.jecaclient.core;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.Window;
@@ -11,6 +14,7 @@ import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.plaf.FontUIResource;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Utils {
 	
 	 public static void centerOnScreen(Window window) {
@@ -49,7 +53,7 @@ public class Utils {
 		// ustaw look and feel
 		try {
 		    for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-			        if (look.toString().equals(info.getName())) {
+			        if (look.equals(info.getName())) {
 			        	UIManager.setLookAndFeel(info.getClassName());
 			        	
 			        	//int fontSize = 10;

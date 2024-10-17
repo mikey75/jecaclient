@@ -24,19 +24,19 @@ public class LadspaPluginOperator {
 	/**
      * Is parameter bounded above?
      */
-	private boolean bounded_above; //3
+	private boolean boundedAbove; //3
 	/**
      * If 'bounded_above', contains the bound value.
      */
-	private Double upper_bound; //4
+	private Double upperBound; //4
 	/**
      * Is parameter bounded below?
      */
-	private boolean bounded_below; //5
+	private boolean boundedBelow; //5
 	/**
      * If 'bounded_below', contains the bound value.
      */
-	private Double lower_bound; //6
+	private Double lowerBound; //6
 
 	
 	/**
@@ -82,36 +82,36 @@ public class LadspaPluginOperator {
 		this.defaultvalue = defaultvalue;
 	}
 
-	public boolean isBounded_above() {
-		return bounded_above;
+	public boolean isBoundedAbove() {
+		return boundedAbove;
 	}
 
-	public void setBounded_above(boolean bounded_above) {
-		this.bounded_above = bounded_above;
+	public void setBoundedAbove(boolean boundedAbove) {
+		this.boundedAbove = boundedAbove;
 	}
 
-	public Double getUpper_bound() {
-		return upper_bound;
+	public Double getUpperBound() {
+		return upperBound;
 	}
 
-	public void setUpper_bound(Double upper_bound) {
-		this.upper_bound = upper_bound;
+	public void setUpperBound(Double upperBound) {
+		this.upperBound = upperBound;
 	}
 
-	public boolean isBounded_below() {
-		return bounded_below;
+	public boolean isBoundedBelow() {
+		return boundedBelow;
 	}
 
-	public void setBounded_below(boolean bounded_below) {
-		this.bounded_below = bounded_below;
+	public void setBoundedBelow(boolean boundedBelow) {
+		this.boundedBelow = boundedBelow;
 	}
 
-	public Double getLower_bound() {
-		return lower_bound;
+	public Double getLowerBound() {
+		return lowerBound;
 	}
 
-	public void setLower_bound(Double lower_bound) {
-		this.lower_bound = lower_bound;
+	public void setLowerBound(Double lowerBound) {
+		this.lowerBound = lowerBound;
 	}
 
 	public boolean isToggled() {

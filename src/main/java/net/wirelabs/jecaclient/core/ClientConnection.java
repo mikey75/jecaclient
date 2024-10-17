@@ -5,8 +5,9 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
 
+import lombok.extern.slf4j.Slf4j;
 import net.wirelabs.jecaclient.boot.JEca;
-
+@Slf4j
 public class ClientConnection {
 
 	private InetAddress address;
@@ -33,11 +34,11 @@ public class ClientConnection {
 		for (int retries = 0; retries < 5; retries++) {
 
 			try {
-				JEca.logger.debug("Trying connection: " + el.getInstanceName() + " " + el.getServer_host() + ":"
-						+ el.getServer_port());
+				log.debug("Trying connection: " + el.getInstanceName() + " " + el.getServerHost() + ":"
+						+ el.getServerPort());
 
-				address = InetAddress.getByName(el.getServer_host());
-				socket = new Socket(address, el.getServer_port());
+				address = InetAddress.getByName(el.getServerHost());
+				socket = new Socket(address, el.getServerPort());
 				socket.setKeepAlive(true);
 				socketready = true;
 				break;
@@ -59,7 +60,7 @@ public class ClientConnection {
 	private void spawnLocalServer(Ecasound el) {
 
 		String path = JEca.configuration.getPath();
-		int port = el.getServer_port();
+		int port = el.getServerPort();
 
 		ProcessBuilder processbuilder = new ProcessBuilder(path, "-c", "--server", "--server-tcp-port=" + port);
 
@@ -68,17 +69,17 @@ public class ClientConnection {
 			processbuilder.redirectOutput(logfile);
 			processbuilder.redirectErrorStream(true);
 		} catch (NullPointerException e) {
-			JEca.logger.debug("ecasound log file creation failed");
+			log.debug("ecasound log file creation failed");
 		}
 
-		JEca.logger.debug("Spawning ecasound process: " + processbuilder.command());
+		log.debug("Spawning ecasound process: " + processbuilder.command());
 
 		try {
 
 			process = processbuilder.start();
 
 		} catch (IOException e) {
-			JEca.logger.error("Ecasound was not started!");
+			log.error("Ecasound was not started!");
 		}
 	}
 
@@ -89,7 +90,7 @@ public class ClientConnection {
 				socket.close();
 			}
 		} catch (IOException e) {
-			JEca.logger.debug("Error closing connection!!");
+			log.debug("Error closing connection!!");
 		}
 	}
 

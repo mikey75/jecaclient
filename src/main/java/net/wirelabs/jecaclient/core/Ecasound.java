@@ -16,31 +16,13 @@ public class Ecasound {
 	@XmlElement(name="instance_id")
 	private String instanceId;
 	private String instanceName;
-	private int server_port;
-	private String server_host;
-	private boolean spawn_server;
+	private int serverPort;
+	private String serverHost;
+	private boolean spawnServer;
 	@XmlTransient
 	private boolean spawned;
 	@XmlTransient
 	private ClientConnection connection;
-	
-//	public Ecasound(){
-//		
-//	}
-//		
-//	public Ecasound(String name, String host, int port, boolean spawn)  {
-//		
-//		this.instanceName = name;
-//		this.server_host = host;
-//		this.server_port = port;
-//		this.spawn_server = spawn;
-//		
-//	}	
-	
-	/*public ClientConnection getConnection() {
-		
-		return connection;
-	}*/
 	
 	public boolean command(String cmd) {
 		
@@ -56,15 +38,15 @@ public class Ecasound {
 	}
 
 	public boolean spawnServer() {
-		return spawn_server;
+		return spawnServer;
 	}
 
-	public int getServer_port() {
-		return server_port;
+	public int getServerPort() {
+		return serverPort;
 	}
 
-	public String getServer_host() {
-		return server_host;
+	public String getServerHost() {
+		return serverHost;
 	}
 
 	

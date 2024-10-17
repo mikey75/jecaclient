@@ -26,7 +26,7 @@ public class LadspaPluginsPanel extends JPanel {
 	public LadspaPluginsPanel(Ecasound eca) {
 		
 		
-		list = new JList<String>();
+		list = new JList<>();
 		plugins = new ArrayList<>();
 		
 		setBorder(new TitledBorder(null, "Registered LADSPA Plugins", TitledBorder.LEADING, TitledBorder.TOP, null, null));

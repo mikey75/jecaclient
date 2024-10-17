@@ -10,9 +10,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.JButton;
-import java.awt.event.ActionListener;
 import java.util.List;
-import java.awt.event.ActionEvent;
 
 public class EcaSessionsPanel extends JPanel {
 	
@@ -64,8 +62,8 @@ public class EcaSessionsPanel extends JPanel {
 		for (Ecasound s : sessions) {
 			  Object[] o = new Object[4];
 			  o[0] = s.getInstanceName();
-			  o[1] = s.getServer_host();
-			  o[2] = s.getServer_port();
+			  o[1] = s.getServerHost();
+			  o[2] = s.getServerPort();
 			  o[3] = s.spawnServer();
 			  ((DefaultTableModel) m).addRow(o);
 			  
@@ -79,13 +77,7 @@ public class EcaSessionsPanel extends JPanel {
 		
 		btnAddNew = new JButton("Add new");
 		
-		btnAddNew.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-				new AddNewInstance().setVisible(true);
-			}
-		});
+		btnAddNew.addActionListener(e -> new AddNewInstance().setVisible(true));
 		
 		add(btnAddNew, "cell 0 1");
 
