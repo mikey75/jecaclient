@@ -1,3 +1,7 @@
 # jecaclient
-java client for ecasound daemon
-[![Build Status](https://travis-ci.org/mikey75/jecaclient.svg?branch=master)](https://travis-ci.org/mikey75/jecaclient)
+Java client/manager for linux EcaSound daemon (virtual audio intefrace with effects, mixing channels etc)</br>
+
+# Warning
+The project is currently suspended.<br>
+No work will be done, but the new version is planned with another approach.
+
